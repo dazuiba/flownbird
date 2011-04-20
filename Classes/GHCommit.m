@@ -1,7 +1,7 @@
 #import "GHCommit.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "NSURL+Extensions.h"
 
 
@@ -87,7 +87,7 @@
 		[request setDidFinishSelector:@selector(loadingFinished:)];
 		[request setDidFailSelector:@selector(loadingFailed:)];
 		DJLog(@"Loading URL: %@", [request url]);
-		[[iOctocat queue] addOperation:request];
+		[[flownbird queue] addOperation:request];
 	} else {
 		[repository loadData];
 	}
@@ -99,10 +99,10 @@
     NSString *authorLogin = [[resource objectForKey:@"author"] objectForKey:@"login"];
     NSString *committerLogin = [[resource objectForKey:@"committer"] objectForKey:@"login"];
     
-    self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
-    self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-    self.committedDate = [iOctocat parseDate:[resource objectForKey:@"committed_date"] withFormat:kISO8601TimeFormat];
-    self.authoredDate = [iOctocat parseDate:[resource objectForKey:@"authored_date"] withFormat:kISO8601TimeFormat];
+    self.author = [[flownbird sharedInstance] userWithLogin:authorLogin];
+    self.committer = [[flownbird sharedInstance] userWithLogin:committerLogin];
+    self.committedDate = [flownbird parseDate:[resource objectForKey:@"committed_date"] withFormat:kISO8601TimeFormat];
+    self.authoredDate = [flownbird parseDate:[resource objectForKey:@"authored_date"] withFormat:kISO8601TimeFormat];
     self.message = [resource objectForKey:@"message"];
     self.tree = [resource objectForKey:@"tree"];
     self.added = [resource objectForKey:@"added"];

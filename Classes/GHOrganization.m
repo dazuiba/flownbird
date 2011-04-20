@@ -9,7 +9,7 @@
 #import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 
 
 @implementation GHOrganization
@@ -39,7 +39,7 @@
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
-	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+	self.gravatar = [UIImage imageWithContentsOfFile:[[flownbird sharedInstance] cachedGravatarPathForIdentifier:self.login]];
     gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
@@ -97,7 +97,7 @@
 	gravatarHash = theHash;
     
 	if (gravatarHash) {
-        [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
+        [gravatarLoader loadHash:gravatarHash withSize:[[flownbird sharedInstance] gravatarSize]]; 
     }
 }
 
@@ -123,7 +123,7 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
+	[UIImagePNGRepresentation(theImage) writeToFile:[[flownbird sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
 }
 
 @end

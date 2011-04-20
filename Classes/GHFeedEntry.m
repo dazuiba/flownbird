@@ -2,7 +2,7 @@
 #import "GHRepository.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 
 
 @implementation GHFeedEntry
@@ -40,11 +40,11 @@
 }
 
 - (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:authorName];
+	return [[flownbird sharedInstance] userWithLogin:authorName];
 }
 
 - (GHOrganization *)organization {
-	return [[iOctocat sharedInstance] organizationWithLogin:authorName];
+	return [[flownbird sharedInstance] organizationWithLogin:authorName];
 }
 
 - (id)eventItem {
@@ -84,12 +84,12 @@
 	} else if ([eventType isEqualToString:@"follow"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" following "];
 		NSString *username = [comps1 objectAtIndex:1];
-		self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
+		self.eventItem = [[flownbird sharedInstance] userWithLogin:username];
 	} else if ([eventType isEqualToString:@"team_add"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" added "];
         NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" to "];
 		NSString *username = [comps2 objectAtIndex:0];
-		self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
+		self.eventItem = [[flownbird sharedInstance] userWithLogin:username];
 	} else if ([eventType isEqualToString:@"watch"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" started watching "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];

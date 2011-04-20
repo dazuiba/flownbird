@@ -2,7 +2,7 @@
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
 
@@ -76,10 +76,10 @@
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSDictionary *resource = [theDict objectForKey:@"issue"] ? [theDict objectForKey:@"issue"] : theDict;
     
-	self.user = [[iOctocat sharedInstance] userWithLogin:[resource objectForKey:@"user"]];
-	self.created = [iOctocat parseDate:[resource objectForKey:@"created_at"] withFormat:kIssueTimeFormat];
-	self.updated = [iOctocat parseDate:[resource objectForKey:@"updated_at"] withFormat:kIssueTimeFormat];
-	self.closed = [iOctocat parseDate:[resource objectForKey:@"closed_at"] withFormat:kIssueTimeFormat];
+	self.user = [[flownbird sharedInstance] userWithLogin:[resource objectForKey:@"user"]];
+	self.created = [flownbird parseDate:[resource objectForKey:@"created_at"] withFormat:kIssueTimeFormat];
+	self.updated = [flownbird parseDate:[resource objectForKey:@"updated_at"] withFormat:kIssueTimeFormat];
+	self.closed = [flownbird parseDate:[resource objectForKey:@"closed_at"] withFormat:kIssueTimeFormat];
 	self.title = [resource objectForKey:@"title"];
 	self.body = [resource objectForKey:@"body"];
 	self.state = [resource objectForKey:@"state"];
@@ -109,7 +109,7 @@
 	[request setDidFinishSelector:@selector(stateTogglingFinished:)];
 	[request setDidFailSelector:@selector(stateTogglingFailed:)];
 	DJLog(@"Sending save request: %@", request);
-	[[iOctocat queue] addOperation:request];
+	[[flownbird queue] addOperation:request];
 }
 
 - (void)stateTogglingFinished:(ASIHTTPRequest *)request {

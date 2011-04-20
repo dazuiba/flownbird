@@ -6,7 +6,7 @@
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
 #import "GHUser.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "NSURL+Extensions.h"
 
 
@@ -40,7 +40,7 @@
 }
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return [[flownbird sharedInstance] currentUser];
 }
 
 - (void)setupFeeds {
@@ -54,7 +54,7 @@
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	for (GHFeed *feed in feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = [[iOctocat sharedInstance] lastReadingDateForURL:feed.resourceURL];
+		feed.lastReadingDate = [[flownbird sharedInstance] lastReadingDateForURL:feed.resourceURL];
 	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
@@ -73,7 +73,7 @@
 
 - (BOOL)refreshCurrentFeedIfRequired {
 	if (!self.currentFeed.isLoaded) return NO;
-	if ([self.currentFeed.lastReadingDate compare:[[iOctocat sharedInstance] didBecomeActiveDate]] != NSOrderedAscending) return NO;
+	if ([self.currentFeed.lastReadingDate compare:[[flownbird sharedInstance] didBecomeActiveDate]] != NSOrderedAscending) return NO;
 	// the feed was loaded before this application became active again, refresh it
 	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self pullRefreshAnimated:YES];
@@ -108,7 +108,7 @@
 			[self.tableView reloadData];
 			loadCounter -= 1;
 			refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
-			[[iOctocat sharedInstance] setLastReadingDate:feed.lastReadingDate forURL:feed.resourceURL];
+			[[flownbird sharedInstance] setLastReadingDate:feed.lastReadingDate forURL:feed.resourceURL];
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];

@@ -7,7 +7,7 @@
 #import "RepositoryController.h"
 #import "UserController.h"
 #import "WebController.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "FeedEntryCell.h"
 #import "FeedEntryController.h"
 #import "IssueController.h"
@@ -64,7 +64,7 @@
 }
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return [[flownbird sharedInstance] currentUser];
 }
 
 - (IBAction)showActions:(id)sender {

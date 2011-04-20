@@ -13,7 +13,7 @@
 #import "CommitController.h"
 #import "IssueController.h"
 #import "IssuesController.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "NSDate+Nibware.h"
 
 
@@ -197,7 +197,7 @@
 		[repoController release];
 	} else if ([pathComponents count] == 1) {
 		NSString *username = [pathComponents objectAtIndex:0];
-		GHUser *user = [[iOctocat sharedInstance] userWithLogin:username];
+		GHUser *user = [[flownbird sharedInstance] userWithLogin:username];
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];

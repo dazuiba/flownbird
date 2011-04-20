@@ -1,5 +1,5 @@
 #import "GHRepository.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "GHIssues.h"
 #import "GHNetworks.h"
 #import "GHBranches.h"
@@ -85,7 +85,7 @@
 }
 
 - (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:owner];
+	return [[flownbird sharedInstance] userWithLogin:owner];
 }
 
 - (int)compareByRepoId:(GHRepository *)theOtherRepository {

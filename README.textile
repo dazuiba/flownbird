@@ -1,4 +1,4 @@
-h1. iOctocat
+h1. flownbird
 
 … is a GitHub app for the iPhone and iPod Touch. It is open source and "available on the App Store":http://itunes.com/apps/ioctocat
 

@@ -9,7 +9,7 @@
 #import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 
 
 @interface GHUser ()
@@ -53,7 +53,7 @@
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
-	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+	self.gravatar = [UIImage imageWithContentsOfFile:[[flownbird sharedInstance] cachedGravatarPathForIdentifier:self.login]];
 	self.isAuthenticated = NO;
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
@@ -118,7 +118,7 @@
 	gravatarHash = theHash;
     
 	if (gravatarHash) {
-       [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
+       [gravatarLoader loadHash:gravatarHash withSize:[[flownbird sharedInstance] gravatarSize]]; 
     }
 }
 
@@ -138,9 +138,9 @@
     self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
     self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
     self.privateRepoCount = [[resource objectForKey:@"total_private_repo_count"] integerValue];
-    self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
-    self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
-    self.isAuthenticated = [resource objectForKey:@"plan"] ? YES : NO;
+    self.followersCount = [[resource objectForKey:@"listeners_count"] integerValue];
+    self.followingCount = [[resource objectForKey:@"stations_count"] integerValue];
+    self.isAuthenticated = [resource objectForKey:@"station_settings"] ? YES : NO;
 }
 
 #pragma mark Following
@@ -167,7 +167,7 @@
 	[request setRequestMethod:@"POST"];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
 	[request setDidFailSelector:@selector(followToggleFailed:)];
-	[[iOctocat queue] addOperation:request];
+	[[flownbird queue] addOperation:request];
 }
 
 - (void)followToggleFinished:(ASIHTTPRequest *)request {
@@ -206,7 +206,7 @@
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];
 	[request setDidFailSelector:@selector(watchToggleFailed:)];
-	[[iOctocat queue] addOperation:request];
+	[[flownbird queue] addOperation:request];
 }
 
 - (void)watchToggleFinished:(ASIHTTPRequest *)request {
@@ -226,7 +226,7 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
+	[UIImagePNGRepresentation(theImage) writeToFile:[[flownbird sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
 }
 
 @end

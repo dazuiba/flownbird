@@ -1,7 +1,7 @@
 #import "GHRepositories.h"
 #import "GHRepository.h"
 #import "GHUser.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "ASIFormDataRequest.h"
 
 

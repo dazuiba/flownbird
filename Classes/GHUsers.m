@@ -1,6 +1,6 @@
 #import "GHUsers.h"
 #import "GHUser.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 
 
 @implementation GHUsers
@@ -31,7 +31,7 @@
     NSMutableArray *resources = [NSMutableArray array];
     for (id item in [theDict objectForKey:@"users"]) {
         NSString *login = ([item isKindOfClass:[NSString class]]) ? item : [item objectForKey:@"login"];
-		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
+		GHUser *theUser = [[flownbird sharedInstance] userWithLogin:login];
         if ([item isKindOfClass:[NSDictionary class]]) [theUser setValuesFromDict:item];
         [resources addObject:theUser];
     }

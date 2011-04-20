@@ -1,6 +1,6 @@
 #import "GHFeedParserDelegate.h"
 #import "GHFeedEntry.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 
 
 @implementation GHFeedParserDelegate
@@ -87,7 +87,7 @@
 			currentEntry.eventType = nil;
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [iOctocat parseDate:currentElementValue withFormat:kISO8601TimeFormat];
+		currentEntry.date = [flownbird parseDate:currentElementValue withFormat:kISO8601TimeFormat];
 	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {

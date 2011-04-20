@@ -1,7 +1,7 @@
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
 #import "GHUser.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 
 
 @implementation GHOrganizations
@@ -33,7 +33,7 @@
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
     for (NSDictionary *dict in [theDict objectForKey:@"organizations"]) {
-		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:[dict objectForKey:@"login"]];
+		GHOrganization *theOrg = [[flownbird sharedInstance] organizationWithLogin:[dict objectForKey:@"login"]];
         [theOrg setValuesFromDict:dict];
         [resources addObject:theOrg];
     }

@@ -10,7 +10,7 @@
 #import "RepositoryCell.h"
 #import "OrganizationCell.h"
 #import "GravatarLoader.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "UsersController.h"
 #import "ASIFormDataRequest.h"
 #import "FeedController.h"
@@ -77,7 +77,7 @@
 }
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return [[flownbird sharedInstance] currentUser];
 }
 
 #pragma mark Actions

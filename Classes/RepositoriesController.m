@@ -5,7 +5,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "RepositoryCell.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "NSURL+Extensions.h"
 
 
@@ -105,7 +105,7 @@
 }
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return [[flownbird sharedInstance] currentUser];
 }
 
 

@@ -1,5 +1,5 @@
 #import "GHResource.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
 
@@ -61,11 +61,8 @@
 	NSString *login = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	
-	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-	// Authentication with token via HTTP Basic Auth, see:
-	// http://support.github.com/discussions/api/57-reposshowlogin-is-missing-private-repositories
-	NSString *loginWithTokenPostfix = [NSString stringWithFormat:@"%@/token", login];
-	[request setUsername:loginWithTokenPostfix];
+	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url]; 
+	[request setUsername:login];
 	[request setPassword:token];
     
 	return request;
@@ -101,7 +98,7 @@
 	[request setDidFinishSelector:@selector(loadingFinished:)];
 	[request setDidFailSelector:@selector(loadingFailed:)];
 	DJLog(@"Loading %@", [request url]);
-	[[iOctocat queue] addOperation:request];
+	[[flownbird queue] addOperation:request];
 }
 
 - (void)loadingFinished:(ASIHTTPRequest *)request {
@@ -141,7 +138,7 @@
 		self.loadingStatus = GHResourceStatusNotProcessed;
         [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
 	} else {
-        [self setValuesFromDict:theResult];
+        [self setValuesFromDict:[theResult objectForKey:@"body"]];
         
         self.loadingStatus = GHResourceStatusProcessed;
         [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
@@ -164,7 +161,7 @@
 		[request setPostValue:value forKey:key];
 	}
 	DJLog(@"Saving %@ - ", [request url], [request postBody]);
-	[[iOctocat queue] addOperation:request];
+	[[flownbird queue] addOperation:request];
 }
 
 - (void)savingFinished:(ASIHTTPRequest *)request {

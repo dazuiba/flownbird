@@ -43,7 +43,7 @@
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
 	if ([login isEmpty] || [token isEmpty]) {
-		[self failWithMessage:@"Please enter your login\nand API token"];
+		[self failWithMessage:@"Please enter your login\nand password"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kLoginDefaultsKey];

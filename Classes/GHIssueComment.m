@@ -1,7 +1,7 @@
 #import "GHIssueComment.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
+#import "flownbird.h"
 #import "NSURL+Extensions.h"
 
 
@@ -23,7 +23,7 @@
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
 	
-	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKey:@"user"]];
+	self.user = [[flownbird sharedInstance] userWithLogin:[theDict valueForKey:@"user"]];
 	self.body = [theDict valueForKey:@"body"];
 	self.created = [dateFormatter dateFromString:createdAt];
 	self.updated = [dateFormatter dateFromString:updatedAt];
